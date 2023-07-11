@@ -3,42 +3,78 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides/1.0" xsi:type="MailApp">
-  <Id>1e7e38da-7ad6-429a-9c6f-81aa1b9c9344</Id>
+  <!-- Metadata -->
+  <!-- Specifies the unique ID of your Office Add-in as a GUID. -->
+  <Id>1e7e38dc-7ad6-429a-9c6f-81aa1b9c9344</Id>
+  <!-- Specifies the version of your Office Add-in. -->
   <Version>1.0.0.0</Version>
+  <!-- Specifies the name of the individual or company that developed this Office Add-in as a string of no more than 125 characters. -->
   <ProviderName>Contoso</ProviderName>
+  <!-- Specifies the default culture name of the locale used by strings in your add-in. -->
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Hello world"/>
-  <Description DefaultValue="A simple hello world Office Add-in."/>
-  <IconUrl DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/outlook-hello-world/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/outlook-hello-world/assets/icon-64.png"/>
+  <!-- Specifies the name for your Office Add-in as a string up to 125 characters long. -->
+  <DisplayName DefaultValue="Hello World GH"/>
+  <!-- Specifies the description of your Office Add-in as a string no longer than 250 characters. -->
+  <Description DefaultValue="A simple 'Hello World' Office Add-in."/>
+  <!-- Specifies the full, absolute URL of the image that is used to represent your Office Add-in
+  in the insertion UX, AppSource, and the vertical task pane tab bar. -->
+  <IconUrl DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-32.png"/>
+  <!-- Specifies the URL of the image that is used to represent your Office Add-in
+  in the insertion UX and Office Store on high DPI screens. -->
+  <HighResolutionIconUrl DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-64.png"/>
+  <!-- Specifies the URL of a page that provides support information for your add-in. -->
   <SupportUrl DefaultValue="https://learn.microsoft.com/office/dev/add-ins/overview/office-add-in-code-samples"/>
+  <!-- / Metadata -->
   <AppDomains>
+  <!-- Lists any domains, in addition to the domain specified in the "SourceLocation" element,
+  that your Office Add-in will use and that should be trusted by Office. -->
     <AppDomain>https://www.contoso.com</AppDomain>
   </AppDomains>
+  <!-- Specifies the Office client applications where the Office Add-in will activate.
+  Contains a collection of <Host> elements and their settings. -->
   <Hosts>
     <Host Name="Mailbox"/>
   </Hosts>
   <Requirements>
+  <!-- When used in the base manifest (that is, as a direct child of OfficeApp),
+  the <Requirements> element specifies the minimum set of Office JavaScript API requirements
+  (requirement sets and/or methods) that your Office Add-in needs to be activated by Office. -->
     <Sets>
       <Set Name="Mailbox" MinVersion="1.1"/>
     </Sets>
   </Requirements>
   <FormSettings>
+  <!-- Specifies source location and control settings for your mail add-in. -->
     <Form xsi:type="ItemRead">
+      <!-- The DesktopSettings element is available only in classic Outlook on the web
+      (usually connected to older versions of on-premises Exchange server) and Outlook 2013 on Windows. -->
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/outlook-hello-world/taskpane.html"/>
+        <SourceLocation DefaultValue="https://luspin.github.io/OutlookAddin/taskpane.html"/>
+        <!--If you opt to include "RequestedHeight", it must be between 32px to 450px, inclusive.-->
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
   </FormSettings>
+  <!-- Specifies the level of API access for your Office Add-in;
+  you should request permissions based on the principle of least privilege. -->
   <Permissions>ReadWriteItem</Permissions>
+  <!-- Specifies the activation rules that should be evaluated for this contextual mail add-in. -->
   <Rule xsi:type="RuleCollection" Mode="Or">
     <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Edit"/>
     <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/>
   </Rule>
+  <!-- Specifies whether entity highlighting should be turned off for your mail add-in. -->
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
+  <!-- This element contains information for features that aren't supported in the base manifest. -->
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
+  <!-- When used as a child of "VersionOverrides", specifies the minimum set of Office JavaScript API requirements
+  (requirement sets and/or methods) that must be supported by the Office version and platform
+  (such as Windows, Mac, web, and iOS or iPad) in order for the settings in the <VersionOverrides> element
+  that override base manifest settings to take effect. -->
     <Requirements>
+    <!-- As a grandchild of a "VersionOverrides" element, specifies the minimum set of Office JavaScript API requirements 
+    (requirement sets) that must be supported by the Office version and platform
+    (such as Windows, Mac, web, and iOS or iPad) in order for the VersionOverrides to take effect. -->
       <bt:Sets DefaultMinVersion="1.3">
         <bt:Set Name="Mailbox"/>
       </bt:Sets>
@@ -46,49 +82,84 @@
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-
+        <!-- Specifies the settings for an add-in for the desktop form factor.
+        The desktop form factor includes Office on the web, Windows, and Mac.
+        It contains all the add-in information for the desktop form factor except for the <Resources> node. -->
           <!-- Message Compose -->
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+          <!-- Defines where an add-in exposes functionality in the Office UI. -->
             <OfficeTab id="TabDefault">
+            <!-- Defines the ribbon tab on which your add-in command appears.
+            This can either be a built-in Office tab or a custom tab defined by the add-in. -->
               <Group id="msgComposeCmdGroup">
+              <!-- Defines a group of UI controls in a tab.
+              On custom tabs, the add-in can create multiple groups. Add-ins are limited to one custom tab. -->
                 <Label resid="CommandsGroup.Label"/>
+                <!-- The "resid" attribute can be no more than 32 characters and
+                must be set to the value of the "id" attribute of a <String> element in
+                the <ShortStrings> element in the "Resources" element. -->
                 <Control xsi:type="Button" id="msgComposeInsertGist">
+                <!-- Defines a control that executes an action or launches a task pane.
+                A <Control> element can be either a button or a menu option.
+                At least one <Control> must be included in a Group element. -->
                   <Label resid="TaskpaneButton.Label"/>
+                  <!-- The "resid" attribute can be no more than 32 characters and
+                  must be set to the value of the "id" attribute of a <String> element in
+                  the <ShortStrings> element in the "Resources" element. -->
                   <Supertip>
+                  <!-- Defines a rich tooltip (both Title and Description).
+                  It is used by both Button controls and "Menu" controls. -->
                     <Title resid="TaskpaneButton.SupertipTitle"/>
+                    <!-- The "resid" attribute can be no more than 32 characters and
+                    must be set to the value of the "id" attribute of a <String> element in
+                    the <ShortStrings> element in the "Resources" element. -->
                     <Description resid="TaskpaneButton.SupertipText"/>
+                    <!-- The "resid" attribute can be no more than 32 characters and
+                    must be set to the value of the "id" attribute of a <String> element in
+                    the <ShortStrings> element in the "Resources" element. -->
                   </Supertip>
                   <Icon>
+                  <!-- Defines a set of <Image> elements for "Button" or "Menu" controls. -->
                     <bt:Image size="16" resid="Icon.16x16"/>
                     <bt:Image size="32" resid="Icon.32x32"/>
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
+                  <!-- Specifies the action to perform when the user selects a "Button" or "Menu" control. -->
                     <SourceLocation resid="Taskpane.Url"/>
+                    <!-- Specifies the source file location for this action.
+                    The "resid" attribute can be no more than 32 characters and
+                    must be set to the value of the "id" attribute of a <Url> element in
+                    the <Urls> element in the "Resources" element. -->
                   </Action>
                 </Control>
               </Group>
             </OfficeTab>
           </ExtensionPoint>
+        <!-- / Message Compose -->
         </DesktopFormFactor>
       </Host>
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16x16" DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/outlook-hello-world/assets/icon-16.png"/>
-        <bt:Image id="Icon.32x32" DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/outlook-hello-world/assets/icon-32.png"/>
-        <bt:Image id="Icon.80x80" DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/outlook-hello-world/assets/icon-80.png"/>
+      <!-- Provides the HTTPS URLs of images for an icon. -->
+        <bt:Image id="Icon.16x16" DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-16.png"/>
+        <bt:Image id="Icon.32x32" DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-32.png"/>
+        <bt:Image id="Icon.80x80" DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/outlook-hello-world/taskpane.html"/>
+      <!-- Provides HTTPS URLs. A URL can have a maximum of 2048 characters. -->
+        <bt:Url id="Taskpane.Url" DefaultValue="https://luspin.github.io/OutlookAddin/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="CommandsGroup.Label" DefaultValue="Contoso Add-in"/>
-        <bt:String id="TaskpaneButton.Label" DefaultValue="Hello world"/>
-        <bt:String id="TaskpaneButton.SupertipTitle" DefaultValue="Hello world"/>
+      <!-- 	The text for <Label> and <Title> elements. Each <String> contains a maximum of 125 characters. -->
+        <bt:String id="CommandsGroup.Label" DefaultValue="Hello World"/>
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Hello World"/>
+        <bt:String id="TaskpaneButton.SupertipTitle" DefaultValue="Hello World!"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="TaskpaneButton.SupertipText" DefaultValue="Open the Hello world add-in"/>
+      <!-- 	The text for <Description> attributes. Each <String> contains a maximum of 250 characters. -->
+        <bt:String id="TaskpaneButton.SupertipText" DefaultValue="Click to open the "Hello World" add-in."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

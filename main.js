@@ -9,17 +9,23 @@ Office.onReady((info) => {
  */
 function sayHello() {
     Office.context.mailbox.item.body.setAsync(
-        "Hello world from GH!",
+        "Hello world!",
         {
             coercionType: "html", // Write text as HTML
         },
 
         // Callback method to check that setAsync succeeded
         function (asyncResult) {
-            if (asyncResult.status ==
-                Office.AsyncResultStatus.Failed) {
+            if (asyncResult.status == Office.AsyncResultStatus.Failed) {
                 write(asyncResult.error.message);
             }
         }
     );
+
+    Office.context.mailbox.item.subject.setAsync("HELLO WORLD!", function (asyncResult) {
+        if (asyncResult.status === "failed") {
+            console.log("Action failed with error: " + asyncResult.error.message);
+        }
+    });
+
 }
