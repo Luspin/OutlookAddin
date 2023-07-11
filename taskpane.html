@@ -6,6 +6,9 @@
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
     <script type="text/javascript" src="main.js"></script>
+
+    <link rel="stylesheet" href="style.css?v=1.0">
+
 </head>
 
 <body>
@@ -14,6 +17,9 @@
 
     <!-- The following image URL tracks diagnostic data for this sample add-in. Please remove the image tag if you reuse this sample in your own code project. -->
     <img src="https://pnptelemetry.azurewebsites.net/pnp-officeaddins/samples/outlook-add-in-hello-world-run" />
+
+    <div id="MyClockDisplay" class="clock" onload="showTime()"></div>
+
 </body>
 
 </html>
