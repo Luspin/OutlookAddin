@@ -5,7 +5,7 @@ Office.onReady((info) => {
 });
 
 /**
- * Writes 'Hello world!' to a new message body.
+ * Writes 'Hello world!' to a new message Subject and Body.
  */
 function sayHello() {
     Office.context.mailbox.item.body.setAsync(
@@ -21,11 +21,4 @@ function sayHello() {
             }
         }
     );
-
-    Office.context.mailbox.item.subject.setAsync("HELLO WORLD!", function (asyncResult) {
-        if (asyncResult.status === "failed") {
-            console.log("Action failed with error: " + asyncResult.error.message);
-        }
-    });
-
 }
