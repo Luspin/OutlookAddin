@@ -21,4 +21,25 @@ function sayHello() {
             }
         }
     );
+
+    sendGETRequest();
+}
+
+function sendGETRequest() {
+
+	var xhr = new XMLHttpRequest();
+	
+	xhr.open('GET', 'https://oam.lusp.in:8443/')
+	
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			// Process the response data
+			console.log(xhr.responseText);
+		} else {
+			// Handle errors
+			console.error('Request failed. Status: ', xhr.status);
+		}
+	};
+	
+    xhr.send();
 }
