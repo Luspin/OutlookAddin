@@ -22,7 +22,7 @@ function sayHello() {
         }
     );
 
-    sendGETRequest();
+    // sendGETRequest();
 }
 
 function sendGETRequest() {
