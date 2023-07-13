@@ -159,7 +159,7 @@
       </bt:ShortStrings>
       <bt:LongStrings>
       <!-- 	The text for <Description> attributes. Each <String> contains a maximum of 250 characters. -->
-        <bt:String id="TaskpaneButton.SupertipText" DefaultValue="Click to open the 'Hello World' add-in."/>
+        <bt:String id="TaskpaneButton.SupertipText" DefaultValue="Click to open the - Hello World - add-in."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>
