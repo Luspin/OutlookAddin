@@ -5,7 +5,7 @@ Office.onReady((info) => {
 });
 
 /**
- * Writes 'Hello world!' to a new message Subject and Body.
+ * Writes 'Hello world!' to a new message Subject and Body. # UPDATE
  */
 function sayHello() {
     Office.context.mailbox.item.body.setAsync(
@@ -28,9 +28,9 @@ function sayHello() {
 function sendGETRequest() {
 
 	var xhr = new XMLHttpRequest();
-	
+
 	xhr.open('GET', 'https://oam.lusp.in:8443/')
-	
+
 	xhr.onload = function() {
 		if (xhr.status === 200) {
 			// Process the response data
@@ -40,6 +40,6 @@ function sendGETRequest() {
 			console.error('Request failed. Status: ', xhr.status);
 		}
 	};
-	
+
     xhr.send();
 }
