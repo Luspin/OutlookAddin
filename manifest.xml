@@ -40,7 +40,7 @@
   the <Requirements> element specifies the minimum set of Office JavaScript API requirements
   (requirement sets and/or methods) that your Office Add-in needs to be activated by Office. -->
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.1"/>
+      <Set Name="Mailbox" MinVersion="1.13"/>
     </Sets>
   </Requirements>
   <FormSettings>
