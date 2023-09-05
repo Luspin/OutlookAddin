@@ -1,6 +1,9 @@
 Office.onReady((info) => {
     if (info.host === Office.HostType.Outlook) {
         document.getElementById("helloButton").onclick = sayHello;
+
+        let supportsSet = Office.context.requirements.isSetSupported('Mailbox', '1.13');
+        document.getElementById("supportedVersion").innerHTML = supportsSet;
     }
 });
 
@@ -21,6 +24,8 @@ function sayHello() {
             }
         }
     );
+
+    
 
     // sendGETRequest();
 }
