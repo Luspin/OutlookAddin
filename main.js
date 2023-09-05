@@ -2,8 +2,11 @@ Office.onReady((info) => {
     if (info.host === Office.HostType.Outlook) {
         document.getElementById("helloButton").onclick = sayHello;
 
-        let supportsSet = Office.context.requirements.isSetSupported('Mailbox', '1.13');
+        let supportsSet = JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13"))
         document.getElementById("supportedVersion").innerHTML = supportsSet;
+
+        console.log(JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13")));
+
     }
 });
 
