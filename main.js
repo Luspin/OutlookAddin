@@ -5,6 +5,7 @@ Office.onReady((info) => {
         document.getElementById("displayDialogAsyncButton").onclick = openDialog;
         document.getElementById("openBrowserWindowButton").onclick = openBrowserWindow;
 
+
         let supportsSet = JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13"))
         document.getElementById("supportedVersion").innerHTML = supportsSet;
 
@@ -12,6 +13,8 @@ Office.onReady((info) => {
 
     }
 });
+
+let dialogResultText = document.getElementById("openBrowserWindowButton")
 
 /**
  * Writes 'Hello world!' to a new message Subject and Body. # UPDATE
@@ -78,13 +81,16 @@ function processMessage(arg) {
     const messageFromDialog = JSON.parse(arg.message);
     if (messageFromDialog.messageType === "dialogClosed") {
         console.log("Dialog closed");
-       dialog.close();
+        dialog.close();
     }
 
     if (messageFromDialog.messageType === "userAuthenticated") {
         console.log("user Authenticated");
-       dialog.close();
+        dialog.close();
     }
+
+    dialogResultText.innerHTML = "Result: " + messageFromDialog.messageType;
+
 }
 
 function openBrowserWindow() {
