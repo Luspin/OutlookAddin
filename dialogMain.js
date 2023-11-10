@@ -1,6 +1,9 @@
 Office.onReady(function() {
     document.getElementById("authButton").onclick = userSignedIn;
     document.getElementById("closeButton").onclick = closeButtonClick;
+    document.getElementById("startButton").onclick = startTimer;
+    document.getElementById("stopButton").onclick = stopTimer;
+    document.getElementById("resetButton").onclick = resetTimer;
 });
  
 // Called when dialog signs in the user.
@@ -25,6 +28,8 @@ function updateClock() {
     const timeString = `${hours}:${minutes}:${seconds}`;
     document.getElementById("clock").textContent = timeString;
 }
+
+setInterval(updateClock, 1000);
 
 // a Javascript timer implementation
 let timerInterval;
@@ -52,8 +57,6 @@ function updateTimer() {
 }
 
 // set up event listeners
-document.getElementById("startButton").addEventListener("click", startTimer);
-document.getElementById("stopButton").addEventListener("click", stopTimer);
-document.getElementById("resetButton").addEventListener("click", resetTimer);
+
 
 startTimer();
