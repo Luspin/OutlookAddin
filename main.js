@@ -63,10 +63,16 @@ function openDialog() {
 
     Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html'),
     function (asyncResult) {
+        console.log("Dialog opened");
         dialog = asyncResult.value;
         dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
     }
 
-    console.log("Dialog opened");
-    console.log("Dialog: " + dialog);
+
+}
+
+function processMessage(arg) {
+    dialog.close();
+    // message processing code goes here;
+    console.log(arg);
 }
