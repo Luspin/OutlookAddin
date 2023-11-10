@@ -5,12 +5,13 @@ Office.onReady(function() {
  
 // Called when dialog signs in the user.
 function userSignedIn() {
-    console.log("User clicked in");
-    Office.context.ui.messageParent(true.toString());
+    let messageObject_dialogClosed = {messageType: "user Authenticated"};
+    let jsonMessage = JSON.stringify(messageObject_dialogClosed);
+    Office.context.ui.messageParent(jsonMessage);
 }
 
 function closeButtonClick() {
-    const messageObject = {messageType: "dialogClosed"};
-    const jsonMessage = JSON.stringify(messageObject);
+    let messageObject_dialogClosed = {messageType: "dialog Closed"};
+    let jsonMessage = JSON.stringify(messageObject_dialogClosed);
     Office.context.ui.messageParent(jsonMessage);
 }
