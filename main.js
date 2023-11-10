@@ -59,14 +59,15 @@ function sendGETRequest() {
 function openDialog() {
     console.log("Opening dialog");
 
-    let dialog;
-
-    Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html'),
+    Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html', {height: 70, width: 100},
     function (asyncResult) {
-        console.log("Dialog opened");
-        dialog = asyncResult.value;
-        dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
-    }
+        const dialog = asyncResult.value;
+        dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => {
+            dialog.close();
+            processMessage(arg);
+        });
+      }
+    );
 
 
 }
@@ -74,5 +75,5 @@ function openDialog() {
 function processMessage(arg) {
     dialog.close();
     // message processing code goes here;
-    console.log(arg);
+    console.log("Args" + arg);
 }
