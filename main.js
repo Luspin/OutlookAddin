@@ -1,6 +1,8 @@
 Office.onReady((info) => {
+    console.log("Office.onReady called");
     if (info.host === Office.HostType.Outlook) {
         document.getElementById("helloButton").onclick = sayHello;
+        document.getElementById("displayDialogAsyncButton").onclick = openDialog;
 
         let supportsSet = JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13"))
         document.getElementById("supportedVersion").innerHTML = supportsSet;
@@ -14,6 +16,8 @@ Office.onReady((info) => {
  * Writes 'Hello world!' to a new message Subject and Body. # UPDATE
  */
 function sayHello() {
+    console.log("Saying hello");
+
     Office.context.mailbox.item.body.setAsync(
         "Hello world!",
         {
@@ -50,4 +54,19 @@ function sendGETRequest() {
 	};
 
     xhr.send();
+}
+
+function openDialog() {
+    console.log("Opening dialog");
+
+    let dialog;
+
+    Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html'),
+    function (asyncResult) {
+        dialog = asyncResult.value;
+        dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+    }
+
+    console.log("Dialog opened");
+    console.log("Dialog: " + dialog);
 }
