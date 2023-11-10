@@ -79,7 +79,9 @@ function processMessage(arg) {
         console.log("Dialog closed");
        dialog.close();
     }
-    dialog.close();
-    // message processing code goes here;
-    console.log("Args" + arg);
+
+    if (messageFromDialog.messageType === "userAuthenticated") {
+        console.log("user Authenticated");
+       dialog.close();
+    }
 }
