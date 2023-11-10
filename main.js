@@ -14,8 +14,6 @@ Office.onReady((info) => {
     }
 });
 
-let dialogResultText = document.getElementById("openBrowserWindowButton")
-
 /**
  * Writes 'Hello world!' to a new message Subject and Body. # UPDATE
  */
@@ -89,7 +87,7 @@ function processMessage(arg) {
         dialog.close();
     }
 
-    dialogResultText.innerHTML = "Result: " + messageFromDialog.messageType;
+    document.getElementById("dialogResultText").innerHTML = "Result: " + messageFromDialog.messageType;
 
 }
 
