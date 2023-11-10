@@ -87,7 +87,7 @@ function processMessage(arg) {
         dialog.close();
     }
 
-    document.getElementById("dialogResultText").innerHTML = "Result: None" + messageFromDialog.messageType;
+    document.getElementById("dialogResultText").innerHTML = "Result: " + messageFromDialog.messageType;
 
 }
 
