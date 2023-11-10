@@ -56,3 +56,4 @@ document.getElementById("startButton").addEventListener("click", startTimer);
 document.getElementById("stopButton").addEventListener("click", stopTimer);
 document.getElementById("resetButton").addEventListener("click", resetTimer);
 
+startTimer();
