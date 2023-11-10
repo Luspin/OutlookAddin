@@ -26,4 +26,33 @@ function updateClock() {
     document.getElementById("clock").textContent = timeString;
 }
 
-setInterval(updateClock, 1000);
+// a Javascript timer implementation
+let timerInterval;
+let timerSeconds = 0;
+
+function startTimer() {
+    timerInterval = setInterval(updateTimer, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+}
+
+function resetTimer() {
+    timerSeconds = 0;
+    updateTimer();
+}
+
+function updateTimer() {
+    timerSeconds++;
+    const minutes = Math.floor(timerSeconds / 60);
+    const seconds = timerSeconds % 60;
+    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    document.getElementById("timer").textContent = timeString;
+}
+
+// set up event listeners
+document.getElementById("startButton").addEventListener("click", startTimer);
+document.getElementById("stopButton").addEventListener("click", stopTimer);
+document.getElementById("resetButton").addEventListener("click", resetTimer);
+
