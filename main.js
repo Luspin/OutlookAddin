@@ -56,14 +56,15 @@ function sendGETRequest() {
     xhr.send();
 }
 
+let dialog; // Declare dialog as global for use in later functions.
+
 function openDialog() {
     console.log("Opening dialog");
 
     Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html', {height: 70, width: 100},
     function (asyncResult) {
-        const dialog = asyncResult.value;
+        dialog = asyncResult.value;
         dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => {
-            dialog.close();
             processMessage(arg);
         });
       }
@@ -73,6 +74,11 @@ function openDialog() {
 }
 
 function processMessage(arg) {
+    const messageFromDialog = JSON.parse(arg.message);
+    if (messageFromDialog.messageType === "dialogClosed") {
+        console.log("Dialog closed");
+       dialog.close();
+    }
     dialog.close();
     // message processing code goes here;
     console.log("Args" + arg);
