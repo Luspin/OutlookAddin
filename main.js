@@ -3,6 +3,7 @@ Office.onReady((info) => {
     if (info.host === Office.HostType.Outlook) {
         document.getElementById("helloButton").onclick = sayHello;
         document.getElementById("displayDialogAsyncButton").onclick = openDialog;
+        document.getElementById("openBrowserWindowButton").onclick = openBrowserWindow;
 
         let supportsSet = JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13"))
         document.getElementById("supportedVersion").innerHTML = supportsSet;
@@ -84,4 +85,8 @@ function processMessage(arg) {
         console.log("user Authenticated");
        dialog.close();
     }
+}
+
+function openBrowserWindow() {
+    Office.context.ui.openBrowserWindow("https://www.google.com");
 }
