@@ -13,7 +13,7 @@
   <!-- Specifies the default culture name of the locale used by strings in your add-in. -->
   <DefaultLocale>en-US</DefaultLocale>
   <!-- Specifies the name for your Office Add-in as a string up to 125 characters long. -->
-  <DisplayName DefaultValue="Hello World GH + 📱"/>
+  <DisplayName DefaultValue="Hello World GH + Mobile"/>
   <!-- Specifies the description of your Office Add-in as a string no longer than 250 characters. -->
   <Description DefaultValue="A simple 'Hello World' Office Add-in."/>
   <!-- Specifies the full, absolute URL of the image that is used to represent your Office Add-in
