@@ -57,6 +57,4 @@ function updateTimer() {
 }
 
 // set up event listeners
-
-
 startTimer();

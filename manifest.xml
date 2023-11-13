@@ -138,6 +138,57 @@
           </ExtensionPoint>
         <!-- / Message Compose -->
         </DesktopFormFactor>
+        <MobileFormFactor>
+          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+                      <OfficeTab id="TabDefault">
+            <!-- Defines the ribbon tab on which your add-in command appears.
+            This can either be a built-in Office tab or a custom tab defined by the add-in. -->
+              <Group id="msgComposeCmdGroup">
+              <!-- Defines a group of UI controls in a tab.
+              On custom tabs, the add-in can create multiple groups. Add-ins are limited to one custom tab. -->
+                <Label resid="CommandsGroup.Label"/>
+                <!-- The "resid" attribute can be no more than 32 characters and
+                must be set to the value of the "id" attribute of a <String> element in
+                the <ShortStrings> element in the "Resources" element. -->
+                <Control xsi:type="Button" id="msgComposeInsertGist">
+                <!-- Defines a control that executes an action or launches a task pane.
+                A <Control> element can be either a button or a menu option.
+                At least one <Control> must be included in a Group element. -->
+                  <Label resid="TaskpaneButton.Label"/>
+                  <!-- The "resid" attribute can be no more than 32 characters and
+                  must be set to the value of the "id" attribute of a <String> element in
+                  the <ShortStrings> element in the "Resources" element. -->
+                  <Supertip>
+                  <!-- Defines a rich tooltip (both Title and Description).
+                  It is used by both Button controls and "Menu" controls. -->
+                    <Title resid="TaskpaneButton.SupertipTitle"/>
+                    <!-- The "resid" attribute can be no more than 32 characters and
+                    must be set to the value of the "id" attribute of a <String> element in
+                    the <ShortStrings> element in the "Resources" element. -->
+                    <Description resid="TaskpaneButton.SupertipText"/>
+                    <!-- The "resid" attribute can be no more than 32 characters and
+                    must be set to the value of the "id" attribute of a <String> element in
+                    the <ShortStrings> element in the "Resources" element. -->
+                  </Supertip>
+                  <Icon>
+                  <!-- Defines a set of <Image> elements for "Button" or "Menu" controls. -->
+                    <bt:Image size="16" resid="Icon.16x16"/>
+                    <bt:Image size="32" resid="Icon.32x32"/>
+                    <bt:Image size="80" resid="Icon.80x80"/>
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                  <!-- Specifies the action to perform when the user selects a "Button" or "Menu" control. -->
+                    <SourceLocation resid="Taskpane.Url"/>
+                    <!-- Specifies the source file location for this action.
+                    The "resid" attribute can be no more than 32 characters and
+                    must be set to the value of the "id" attribute of a <Url> element in
+                    the <Urls> element in the "Resources" element. -->
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </MobileFormFactor>
       </Host>
     </Hosts>
     <Resources>
