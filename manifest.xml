@@ -139,26 +139,7 @@
           <!-- / Message Compose -->
         </DesktopFormFactor>
         <MobileFormFactor>
-          <ExtensionPoint xsi:type="MobileMessageReadCommandSurface">
-            <Group id="msgReadCmdGroup">
-              <Label resid="CommandsGroup.Label"/>
-              <Control xsi:type="Button" id="msgReadInsertGist">
-                <Label resid="TaskpaneButton.Label"/>
-                <Supertip>
-                  <Title resid="TaskpaneButton.SupertipTitle"/>
-                  <Description resid="TaskpaneButton.SupertipText"/>
-                </Supertip>
-                <Icon>
-                  <bt:Image size="16" resid="Icon.16x16"/>
-                  <bt:Image size="32" resid="Icon.32x32"/>
-                  <bt:Image size="80" resid="Icon.80x80"/>
-                </Icon>
-                <Action xsi:type="ShowTaskpane">
-                  <SourceLocation resid="Taskpane.Url"/>
-                </Action>
-              </Control>
-            </Group>
-          </ExtensionPoint>
+          <!-- Specifies the settings for an add-in for the mobile form factor. -->
         </MobileFormFactor>
       </Host>
     </Hosts>
