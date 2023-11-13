@@ -26,7 +26,7 @@
   <SupportUrl DefaultValue="https://learn.microsoft.com/office/dev/add-ins/overview/office-add-in-code-samples"/>
   <!-- / Metadata -->
   <AppDomains>
-  <!-- Lists any domains, in addition to the domain specified in the "SourceLocation" element,
+    <!-- Lists any domains, in addition to the domain specified in the "SourceLocation" element,
   that your Office Add-in will use and that should be trusted by Office. -->
     <AppDomain>https://www.contoso.com</AppDomain>
   </AppDomains>
@@ -36,7 +36,7 @@
     <Host Name="Mailbox"/>
   </Hosts>
   <Requirements>
-  <!-- When used in the base manifest (that is, as a direct child of OfficeApp),
+    <!-- When used in the base manifest (that is, as a direct child of OfficeApp),
   the <Requirements> element specifies the minimum set of Office JavaScript API requirements
   (requirement sets and/or methods) that your Office Add-in needs to be activated by Office. -->
     <Sets>
@@ -44,7 +44,7 @@
     </Sets>
   </Requirements>
   <FormSettings>
-  <!-- Specifies source location and control settings for your mail add-in. -->
+    <!-- Specifies source location and control settings for your mail add-in. -->
     <Form xsi:type="ItemRead">
       <!-- The DesktopSettings element is available only in classic Outlook on the web
       (usually connected to older versions of on-premises Exchange server) and Outlook 2013 on Windows. -->
@@ -67,12 +67,12 @@
   <DisableEntityHighlighting>false</DisableEntityHighlighting>
   <!-- This element contains information for features that aren't supported in the base manifest. -->
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
-  <!-- When used as a child of "VersionOverrides", specifies the minimum set of Office JavaScript API requirements
+    <!-- When used as a child of "VersionOverrides", specifies the minimum set of Office JavaScript API requirements
   (requirement sets and/or methods) that must be supported by the Office version and platform
   (such as Windows, Mac, web, and iOS or iPad) in order for the settings in the <VersionOverrides> element
   that override base manifest settings to take effect. -->
     <Requirements>
-    <!-- As a grandchild of a "VersionOverrides" element, specifies the minimum set of Office JavaScript API requirements 
+      <!-- As a grandchild of a "VersionOverrides" element, specifies the minimum set of Office JavaScript API requirements 
     (requirement sets) that must be supported by the Office version and platform
     (such as Windows, Mac, web, and iOS or iPad) in order for the VersionOverrides to take effect. -->
       <bt:Sets DefaultMinVersion="1.10">
@@ -82,24 +82,24 @@
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-        <!-- Specifies the settings for an add-in for the desktop form factor.
+          <!-- Specifies the settings for an add-in for the desktop form factor.
         The desktop form factor includes Office on the web, Windows, and Mac.
         It contains all the add-in information for the desktop form factor except for the <Resources> node. -->
           <!-- Message Compose -->
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
-          <!-- Defines where an add-in exposes functionality in the Office UI. -->
+            <!-- Defines where an add-in exposes functionality in the Office UI. -->
             <OfficeTab id="TabDefault">
-            <!-- Defines the ribbon tab on which your add-in command appears.
+              <!-- Defines the ribbon tab on which your add-in command appears.
             This can either be a built-in Office tab or a custom tab defined by the add-in. -->
               <Group id="msgComposeCmdGroup">
-              <!-- Defines a group of UI controls in a tab.
+                <!-- Defines a group of UI controls in a tab.
               On custom tabs, the add-in can create multiple groups. Add-ins are limited to one custom tab. -->
                 <Label resid="CommandsGroup.Label"/>
                 <!-- The "resid" attribute can be no more than 32 characters and
                 must be set to the value of the "id" attribute of a <String> element in
                 the <ShortStrings> element in the "Resources" element. -->
                 <Control xsi:type="Button" id="msgComposeInsertGist">
-                <!-- Defines a control that executes an action or launches a task pane.
+                  <!-- Defines a control that executes an action or launches a task pane.
                 A <Control> element can be either a button or a menu option.
                 At least one <Control> must be included in a Group element. -->
                   <Label resid="TaskpaneButton.Label"/>
@@ -107,7 +107,7 @@
                   must be set to the value of the "id" attribute of a <String> element in
                   the <ShortStrings> element in the "Resources" element. -->
                   <Supertip>
-                  <!-- Defines a rich tooltip (both Title and Description).
+                    <!-- Defines a rich tooltip (both Title and Description).
                   It is used by both Button controls and "Menu" controls. -->
                     <Title resid="TaskpaneButton.SupertipTitle"/>
                     <!-- The "resid" attribute can be no more than 32 characters and
@@ -119,13 +119,13 @@
                     the <ShortStrings> element in the "Resources" element. -->
                   </Supertip>
                   <Icon>
-                  <!-- Defines a set of <Image> elements for "Button" or "Menu" controls. -->
+                    <!-- Defines a set of <Image> elements for "Button" or "Menu" controls. -->
                     <bt:Image size="16" resid="Icon.16x16"/>
                     <bt:Image size="32" resid="Icon.32x32"/>
                     <bt:Image size="80" resid="Icon.80x80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
-                  <!-- Specifies the action to perform when the user selects a "Button" or "Menu" control. -->
+                    <!-- Specifies the action to perform when the user selects a "Button" or "Menu" control. -->
                     <SourceLocation resid="Taskpane.Url"/>
                     <!-- Specifies the source file location for this action.
                     The "resid" attribute can be no more than 32 characters and
@@ -136,80 +136,51 @@
               </Group>
             </OfficeTab>
           </ExtensionPoint>
-        <!-- / Message Compose -->
+          <!-- / Message Compose -->
         </DesktopFormFactor>
         <MobileFormFactor>
-          <ExtensionPoint xsi:type="MessageComposeCommandSurface">
-                      <OfficeTab id="TabDefault">
-            <!-- Defines the ribbon tab on which your add-in command appears.
-            This can either be a built-in Office tab or a custom tab defined by the add-in. -->
-              <Group id="msgComposeCmdGroup">
-              <!-- Defines a group of UI controls in a tab.
-              On custom tabs, the add-in can create multiple groups. Add-ins are limited to one custom tab. -->
-                <Label resid="CommandsGroup.Label"/>
-                <!-- The "resid" attribute can be no more than 32 characters and
-                must be set to the value of the "id" attribute of a <String> element in
-                the <ShortStrings> element in the "Resources" element. -->
-                <Control xsi:type="Button" id="msgComposeInsertGist">
-                <!-- Defines a control that executes an action or launches a task pane.
-                A <Control> element can be either a button or a menu option.
-                At least one <Control> must be included in a Group element. -->
-                  <Label resid="TaskpaneButton.Label"/>
-                  <!-- The "resid" attribute can be no more than 32 characters and
-                  must be set to the value of the "id" attribute of a <String> element in
-                  the <ShortStrings> element in the "Resources" element. -->
-                  <Supertip>
-                  <!-- Defines a rich tooltip (both Title and Description).
-                  It is used by both Button controls and "Menu" controls. -->
-                    <Title resid="TaskpaneButton.SupertipTitle"/>
-                    <!-- The "resid" attribute can be no more than 32 characters and
-                    must be set to the value of the "id" attribute of a <String> element in
-                    the <ShortStrings> element in the "Resources" element. -->
-                    <Description resid="TaskpaneButton.SupertipText"/>
-                    <!-- The "resid" attribute can be no more than 32 characters and
-                    must be set to the value of the "id" attribute of a <String> element in
-                    the <ShortStrings> element in the "Resources" element. -->
-                  </Supertip>
-                  <Icon>
-                  <!-- Defines a set of <Image> elements for "Button" or "Menu" controls. -->
-                    <bt:Image size="16" resid="Icon.16x16"/>
-                    <bt:Image size="32" resid="Icon.32x32"/>
-                    <bt:Image size="80" resid="Icon.80x80"/>
-                  </Icon>
-                  <Action xsi:type="ShowTaskpane">
-                  <!-- Specifies the action to perform when the user selects a "Button" or "Menu" control. -->
-                    <SourceLocation resid="Taskpane.Url"/>
-                    <!-- Specifies the source file location for this action.
-                    The "resid" attribute can be no more than 32 characters and
-                    must be set to the value of the "id" attribute of a <Url> element in
-                    the <Urls> element in the "Resources" element. -->
-                  </Action>
-                </Control>
-              </Group>
-            </OfficeTab>
+          <ExtensionPoint xsi:type="MobileMessageReadCommandSurface">
+            <Group id="msgReadCmdGroup">
+              <Label resid="CommandsGroup.Label"/>
+              <Control xsi:type="Button" id="msgReadInsertGist">
+                <Label resid="TaskpaneButton.Label"/>
+                <Supertip>
+                  <Title resid="TaskpaneButton.SupertipTitle"/>
+                  <Description resid="TaskpaneButton.SupertipText"/>
+                </Supertip>
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16"/>
+                  <bt:Image size="32" resid="Icon.32x32"/>
+                  <bt:Image size="80" resid="Icon.80x80"/>
+                </Icon>
+                <Action xsi:type="ShowTaskpane">
+                  <SourceLocation resid="Taskpane.Url"/>
+                </Action>
+              </Control>
+            </Group>
           </ExtensionPoint>
         </MobileFormFactor>
       </Host>
     </Hosts>
     <Resources>
       <bt:Images>
-      <!-- Provides the HTTPS URLs of images for an icon. -->
+        <!-- Provides the HTTPS URLs of images for an icon. -->
         <bt:Image id="Icon.16x16" DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-16.png"/>
         <bt:Image id="Icon.32x32" DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-32.png"/>
         <bt:Image id="Icon.80x80" DefaultValue="https://luspin.github.io/OutlookAddin/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-      <!-- Provides HTTPS URLs. A URL can have a maximum of 2048 characters. -->
+        <!-- Provides HTTPS URLs. A URL can have a maximum of 2048 characters. -->
         <bt:Url id="Taskpane.Url" DefaultValue="https://luspin.github.io/OutlookAddin/taskpane.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-      <!-- 	The text for <Label> and <Title> elements. Each <String> contains a maximum of 125 characters. -->
+        <!-- 	The text for <Label> and <Title> elements. Each <String> contains a maximum of 125 characters. -->
         <bt:String id="CommandsGroup.Label" DefaultValue="Hello World"/>
         <bt:String id="TaskpaneButton.Label" DefaultValue="Hello World"/>
         <bt:String id="TaskpaneButton.SupertipTitle" DefaultValue="Hello World!"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-      <!-- 	The text for <Description> attributes. Each <String> contains a maximum of 250 characters. -->
+        <!-- 	The text for <Description> attributes. Each <String> contains a maximum of 250 characters. -->
         <bt:String id="TaskpaneButton.SupertipText" DefaultValue="Click to open the - Hello World - add-in."/>
       </bt:LongStrings>
     </Resources>
