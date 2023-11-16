@@ -89,9 +89,8 @@ async function getOffice365Token(clientId, clientSecret, tenantId) {
         body: new URLSearchParams({
           grant_type: 'client_credentials',
           client_id: clientId,
-          client_secret: clientSecret,
-          scope: 'https://graph.microsoft.com/.default',
-          redirect_uri: 'http://127.0.0.1:5000',
+          client_secret: encodeURIComponent(clientSecret),
+          scope: 'https://graph.microsoft.com/.default'
         }),
       });
   
