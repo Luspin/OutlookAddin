@@ -63,7 +63,7 @@ let dialog; // Declare dialog as global for use in later functions.
 function openDialog() {
     console.log("Opening dialog");
 
-    Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html', {height: 20, width: 10, promptBeforeOpen: true},
+    Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html', {height: 20, width: 10, promptBeforeOpen: false},
     function (asyncResult) {
         dialog = asyncResult.value;
         dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => {
