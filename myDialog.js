@@ -96,8 +96,12 @@ async function auth_Msal() {
       }
     });
 
-    let json = await payload.json();
-    console.log('Graph Response: ' + JSON.stringify(json, null, 2));
+    let userDetailsJson = await payload.json();
+    console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
+
+    Office.context.ui.messageParent(userDetailsJson);
+
+
 
 }
 

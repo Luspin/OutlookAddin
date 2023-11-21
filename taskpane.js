@@ -75,17 +75,23 @@ function openDialog() {
 
 function processMessage(arg) {
     const messageFromDialog = JSON.parse(arg.message);
+
     if (messageFromDialog.messageType === "dialogClosed") {
         console.log("Dialog closed");
+        document.getElementById("dialogResultText").innerHTML = "Result: " + messageFromDialog.messageType;
         dialog.close();
     }
 
     if (messageFromDialog.messageType === "userAuthenticated") {
         console.log("user Authenticated");
+        document.getElementById("dialogResultText").innerHTML = "Result: " + messageFromDialog.messageType;
         dialog.close();
     }
 
-    document.getElementById("dialogResultText").innerHTML = "Result: " + messageFromDialog.messageType;
+    console.log("got Token");
+
+    document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.displayName;
+
 
 }
 
