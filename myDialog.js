@@ -90,5 +90,14 @@ async function auth_Msal() {
   let tokenResponse = await client.acquireTokenSilent(tokenRequest);
   console.log('Token: ' + tokenResponse);
 
+  let payload = await fetch('https://graph.microsoft.com/v1.0/me', {
+      headers: {
+        'Authorization': 'Bearer ' + tokenResponse.accessToken
+      }
+    });
+
+    let json = await payload.json();
+    console.log('Graph Response: ' + json);
+
 }
 
