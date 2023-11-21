@@ -34,26 +34,26 @@ function sayHello() {
         }
     );
 
-    
+
 
     // sendGETRequest();
 }
 
 function sendGETRequest() {
 
-	var xhr = new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
-	xhr.open('GET', 'https://oam.lusp.in:8443/')
+    xhr.open('GET', 'https://oam.lusp.in:8443/')
 
-	xhr.onload = function() {
-		if (xhr.status === 200) {
-			// Process the response data
-			console.log(xhr.responseText);
-		} else {
-			// Handle errors
-			console.error('Request failed. Status: ', xhr.status);
-		}
-	};
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // Process the response data
+            console.log(xhr.responseText);
+        } else {
+            // Handle errors
+            console.error('Request failed. Status: ', xhr.status);
+        }
+    };
 
     xhr.send();
 }
@@ -63,13 +63,13 @@ let dialog; // Declare dialog as global for use in later functions.
 function openDialog() {
     console.log("Opening dialog");
 
-    Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html', {height: 40, width: 20, promptBeforeOpen: false},
-    function (asyncResult) {
-        dialog = asyncResult.value;
-        dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => {
-            processMessage(arg);
-        });
-      }
+    Office.context.ui.displayDialogAsync('https://luspin.github.io/OutlookAddin/myDialog.html', { height: 40, width: 20, promptBeforeOpen: false },
+        function (asyncResult) {
+            dialog = asyncResult.value;
+            dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => {
+                processMessage(arg);
+            });
+        }
     );
 }
 

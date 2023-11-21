@@ -1,35 +1,35 @@
-Office.onReady(function() {
-    document.getElementById("authButton").onclick = userSignedIn;
-    document.getElementById("closeButton").onclick = closeButtonClick;
-    document.getElementById("startButton").onclick = startTimer;
-    document.getElementById("stopButton").onclick = stopTimer;
-    document.getElementById("resetButton").onclick = resetTimer;
-    document.getElementById("authButton_Msal").onclick = auth_Msal;
+Office.onReady(function () {
+  document.getElementById("authButton").onclick = userSignedIn;
+  document.getElementById("closeButton").onclick = closeButtonClick;
+  document.getElementById("startButton").onclick = startTimer;
+  document.getElementById("stopButton").onclick = stopTimer;
+  document.getElementById("resetButton").onclick = resetTimer;
+  document.getElementById("authButton_Msal").onclick = auth_Msal;
 });
 
 
- 
+
 // Called when dialog signs in the user.
 function userSignedIn() {
-    let messageObject_userAuthenticated = {messageType: "userAuthenticated"};
-    let jsonMessage = JSON.stringify(messageObject_userAuthenticated);
-    Office.context.ui.messageParent(jsonMessage);
+  let messageObject_userAuthenticated = { messageType: "userAuthenticated" };
+  let jsonMessage = JSON.stringify(messageObject_userAuthenticated);
+  Office.context.ui.messageParent(jsonMessage);
 }
 
 function closeButtonClick() {
-    let messageObject_dialogClosed = {messageType: "dialogClosed"};
-    let jsonMessage = JSON.stringify(messageObject_dialogClosed);
-    Office.context.ui.messageParent(jsonMessage);
+  let messageObject_dialogClosed = { messageType: "dialogClosed" };
+  let jsonMessage = JSON.stringify(messageObject_dialogClosed);
+  Office.context.ui.messageParent(jsonMessage);
 }
 
 // a Javascript clock implementation
 function updateClock() {
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const seconds = now.getSeconds();
-    const timeString = `${hours}:${minutes}:${seconds}`;
-    document.getElementById("clock").textContent = timeString;
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const seconds = now.getSeconds();
+  const timeString = `${hours}:${minutes}:${seconds}`;
+  document.getElementById("clock").textContent = timeString;
 }
 
 setInterval(updateClock, 1000);
@@ -39,24 +39,24 @@ let timerInterval;
 let timerSeconds = 0;
 
 function startTimer() {
-    timerInterval = setInterval(updateTimer, 1000);
+  timerInterval = setInterval(updateTimer, 1000);
 }
 
 function stopTimer() {
-    clearInterval(timerInterval);
+  clearInterval(timerInterval);
 }
 
 function resetTimer() {
-    timerSeconds = 0;
-    updateTimer();
+  timerSeconds = 0;
+  updateTimer();
 }
 
 function updateTimer() {
-    timerSeconds++;
-    const minutes = Math.floor(timerSeconds / 60);
-    const seconds = timerSeconds % 60;
-    const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    document.getElementById("timer").textContent = timeString;
+  timerSeconds++;
+  const minutes = Math.floor(timerSeconds / 60);
+  const seconds = timerSeconds % 60;
+  const timeString = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  document.getElementById("timer").textContent = timeString;
 }
 
 // set up event listeners
@@ -76,14 +76,14 @@ async function auth_Msal() {
   var client = new msal.PublicClientApplication(config);
 
   var loginRequest = {
-    scopes: [ 'User.Read' ]
+    scopes: ['User.Read']
   };
 
   let loginResponse = await client.loginPopup(loginRequest);
   console.log('Response: ' + loginResponse);
 
   var tokenRequest = {
-    scopes: [ 'User.Read' ],
+    scopes: ['User.Read'],
     account: loginResponse.account
   };
 
@@ -91,17 +91,16 @@ async function auth_Msal() {
   console.log('Token: ' + JSON.stringify(tokenResponse, null, 2));
 
   let payload = await fetch('https://graph.microsoft.com/v1.0/me', {
-      headers: {
-        'Authorization': 'Bearer ' + tokenResponse.accessToken
-      }
-    });
+    headers: {
+      'Authorization': 'Bearer ' + tokenResponse.accessToken
+    }
+  });
 
-    let userDetailsJson = await payload.json();
-    console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
+  let userDetailsJson = await payload.json();
+  console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
 
-    Office.context.ui.messageParent(payload);
-
-
+  let messageObject_userAuthenticated = { messageType: "msalAuth", payload };
+  Office.context.ui.messageParent(messageObject_userAuthenticated);
 
 }
 
