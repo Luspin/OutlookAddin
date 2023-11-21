@@ -99,8 +99,14 @@ async function auth_Msal() {
   let userDetailsJson = await payload.json();
   console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
 
-  let userMessage = { messageType: "userAuthenticated", userName: userDetailsJson.displayName }
-  Office.context.ui.messageParent(userMessage);
+  userProfileSignedIn(userDetailsJson);
 
 }
 
+function userProfileSignedIn(profile) {
+  const profileMessage = {
+    "name": profile.name,
+    "email": profile.email,
+  };
+  Office.context.ui.messageParent(JSON.stringify(profileMessage));
+}
