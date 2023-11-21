@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
-    <script type="text/javascript" src="myDialog.js"></script>
+    <script type="text/javascript" src="https://alcdn.msauth.net/browser/2.35.0/js/msal-browser.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/@azure/msal-browser@2.35.0/lib/msal-browser.min.js"></script>
 
     <title>Document</title>
 </head>
+
 <body>
+    <script type="text/javascript" src="myDialog.js"></script>
     <p id="timer">00:00:00</p>
     <button id="startButton">Start</button>
     <button id="stopButton">Stop</button>
@@ -21,8 +25,6 @@
     <p>Authenticate Button</p>
     <button id="authButton">Authenticate</button>
     <br><br>
-    <p>Client Secret:</p>
-    <input type="text" id="clientSecretInput" placeholder="clientsecret" value="">
     <p>Authenticate Button MSAL</p>
     <button id="authButton_Msal">AuthenticateMsal</button>
     <br><br>
@@ -30,4 +32,5 @@
     <button id="closeButton">Close</button>
     <br>
 </body>
+
 </html>
