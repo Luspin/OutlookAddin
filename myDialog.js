@@ -102,5 +102,7 @@ async function auth_Msal() {
   let messageObject_userAuthenticated = { messageType: "msalAuth", payload };
   Office.context.ui.messageParent(messageObject_userAuthenticated);
 
+  Office.context.ui.messageParent('{userName : ' + userDetailsJson.displayName + '}');
+
 }
 
