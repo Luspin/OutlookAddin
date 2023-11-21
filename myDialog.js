@@ -99,10 +99,8 @@ async function auth_Msal() {
   let userDetailsJson = await payload.json();
   console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
 
-  let messageObject_userAuthenticated = { messageType: "msalAuth", payload };
-  Office.context.ui.messageParent(messageObject_userAuthenticated);
-
-  Office.context.ui.messageParent('{userName : ' + userDetailsJson.displayName + '}');
+  let userMessage = { messageType: "userAuthenticated", userName: userDetailsJson.displayName }
+  Office.context.ui.messageParent(userMessage);
 
 }
 
