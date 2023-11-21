@@ -90,7 +90,7 @@ function processMessage(arg) {
 
     console.log("got Token: " + arg);
 
-    document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.userName;
+    document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.name;
     dialog.close();
 
 }
