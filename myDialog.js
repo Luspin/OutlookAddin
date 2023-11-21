@@ -64,6 +64,7 @@ startTimer();
 
 
 async function auth_Msal() {
+  // https://www.youtube.com/watch?v=YVLaQHePKaQ
   const config = {
     auth: {
       clientId: "95735d7a-6233-4d23-94b6-398b0f716e80",
@@ -80,6 +81,14 @@ async function auth_Msal() {
 
   let loginResponse = await client.loginPopup(loginRequest);
   console.log('Response: ' + loginResponse);
+
+  var tokenRequest = {
+    scopes: [ 'User.Read' ],
+    account: loginResponse.account
+  };
+
+  let tokenResponse = await client.acquireTokenSilent(tokenRequest);
+  console.log('Token: ' + tokenResponse);
 
 }
 
