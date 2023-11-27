@@ -180,8 +180,7 @@ async function getUserDetails(accessToken) {
     // Wait for the JSON promise to resolve
     const userDetailsJson = await userDetailsJsonPromise;
     console.log('User details:', userDetailsJson);
-    
-
+    return userDetailsJson;
 
     // Continue with any further processing using userDetailsJson
   } catch (error) {
