@@ -65,43 +65,89 @@ startTimer();
 
 async function auth_Msal() {
   // https://www.youtube.com/watch?v=YVLaQHePKaQ
-  const config = {
+  var msalInstance = new msal.PublicClientApplication({
     auth: {
-      clientId: "95735d7a-6233-4d23-94b6-398b0f716e80",
-      authority: "https://login.microsoftonline.com/57cbf392-5174-46fa-b118-774b8410e0ca",
-      redirectUri: "https://luspin.github.io/OutlookAddin/"
-    }
-  };
-
-  var client = new msal.PublicClientApplication(config);
-
-  var loginRequest = {
-    scopes: ['User.Read']
-  };
-
-  let loginResponse = await client.loginPopup(loginRequest);
-  console.log('Response: ' + loginResponse);
-
-  var tokenRequest = {
-    scopes: ['User.Read'],
-    account: loginResponse.account
-  };
-
-  let tokenResponse = await client.acquireTokenSilent(tokenRequest);
-  console.log('Token: ' + JSON.stringify(tokenResponse, null, 2));
-
-  let payload = await fetch('https://graph.microsoft.com/v1.0/me', {
-    headers: {
-      'Authorization': 'Bearer ' + tokenResponse.accessToken
+      clientId: '95735d7a-6233-4d23-94b6-398b0f716e80',
+      authority: 'https://login.microsoftonline.com/57cbf392-5174-46fa-b118-774b8410e0ca',
+      redirectUri: 'https://luspin.github.io/OutlookAddin/' // Must be registered as "spa" type
+    },
+    cache: {
+      cacheLocation: 'localStorage', // needed to avoid "login required" error
+      storeAuthStateInCookie: true   // recommended to avoid certain IE/Edge issues
     }
   });
 
-  let userDetailsJson = await payload.json();
-  console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
+  // https://github.com/OfficeDev/Office-Add-in-samples/blob/main/Samples/auth/Office-Add-in-Microsoft-Graph-React/login/login.ts#L32
 
-  userProfileSignedIn(userDetailsJson);
+  // handleRedirectPromise should be invoked on every page load
+  msalInstance.handleRedirectPromise()
+    .then((response) => {
+      // If response is non-null, it means page is returning from AAD with a successful response
+      if (response) {
+        console.log('Response: ' + response.accessToken);
+
+        let payload = fetch('https://graph.microsoft.com/v1.0/me', {
+          headers: {
+            'Authorization': 'Bearer ' + response.accessToken
+          }
+        });
+
+        let userDetailsJson = payload.json();
+
+        Office.context.ui.messageParent(JSON.stringify({ status: 'userAuthenticated', result: response.accessToken }));
+      } else {
+        // Otherwise, invoke login
+        msalInstance.loginRedirect({
+          scopes: ['User.Read']
+        });
+      }
+    })
+    .catch((error) => {
+      const errorData = `errorMessage: ${error.errorCode}
+                                  message: ${error.errorMessage}
+                                  errorCode: ${error.stack}`;
+
+      Office.context.ui.messageParent(JSON.stringify({ status: 'failure', result: errorData }));
+    });
+};
+
+/*
+
+var loginRequest = {
+  scopes: ['User.Read']
+};
+
+let loginResponse = await client.loginPopup(loginRequest);
+console.log('Response: ' + loginResponse);
+
+var tokenRequest = {
+  scopes: ['User.Read'],
+  account: loginResponse.account
+};
+
+let tokenResponse = await client.acquireTokenSilent(tokenRequest);
+console.log('Token: ' + JSON.stringify(tokenResponse, null, 2));
+
+
+
+
+let payload = await fetch('https://graph.microsoft.com/v1.0/me', {
+  headers: {
+    'Authorization': 'Bearer ' + tokenResponse.accessToken
+  }
+});
+
+
+
+let userDetailsJson = await payload.json();
+console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
+
+userProfileSignedIn(userDetailsJson);
+
+
 
 }
+*/
 
 function userProfileSignedIn(profile) {
   const profileMessage = {
