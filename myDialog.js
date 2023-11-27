@@ -180,6 +180,8 @@ async function getUserDetails(accessToken) {
     const userDetailsJson = await response.json();
     console.log('User details:', userDetailsJson);
 
+    return userDetailsJson;
+
     // Continue with any further processing using userDetailsJson
   } catch (error) {
     console.error('Error fetching user details:', error);

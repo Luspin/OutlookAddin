@@ -84,7 +84,7 @@ function processMessage(arg) {
 
     if (messageFromDialog.messageType === "userAuthenticated") {
         console.log("user Authenticated");
-        document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.name;
+        document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.result.name;
         dialog.close();
     }
 }
