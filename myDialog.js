@@ -120,8 +120,6 @@ async function tokenCallback() {
   }
 }
 
-
-
 async function auth_Msal() {
   // https://www.youtube.com/watch?v=YVLaQHePKaQ
   var msalInstance = new msal.PublicClientApplication({
@@ -147,7 +145,7 @@ async function auth_Msal() {
 
         // Call the async function
         getUserDetails(response.accessToken).then((userDetails) => {
-          Office.context.ui.messageParent(JSON.stringify({ messageType: 'userAuthenticated', result: userDetails }));
+          Office.context.ui.messageParent(JSON.stringify(`{ messageType: 'userAuthenticated', displayName: ${userDetails.displayName}}`));
         });
       } else {
         // Otherwise, invoke login
@@ -182,7 +180,8 @@ async function getUserDetails(accessToken) {
     // Wait for the JSON promise to resolve
     const userDetailsJson = await userDetailsJsonPromise;
     console.log('User details:', userDetailsJson);
-    console.log('DONE getUserDetails');
+    
+
 
     // Continue with any further processing using userDetailsJson
   } catch (error) {
