@@ -178,7 +178,7 @@ async function getUserDetails(accessToken) {
       throw new Error('Network response was not ok');
     }
 
-    const userDetailsJson = await response();
+    const userDetailsJson = await response;
     console.log('User details:', userDetailsJson);
 
     return userDetailsJson;
