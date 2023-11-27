@@ -145,13 +145,8 @@ async function auth_Msal() {
       if (response) {
         console.log('Response: ' + response.accessToken);
 
-        let payload = fetch('https://graph.microsoft.com/v1.0/me', {
-          headers: {
-            'Authorization': 'Bearer ' + response.accessToken
-          }
-        });
-
-        let userDetailsJson = payload.json();
+      // Call the async function
+      getUserDetails();
 
         Office.context.ui.messageParent(JSON.stringify({ status: 'userAuthenticated', result: response.accessToken }));
       } else {
@@ -169,6 +164,30 @@ async function auth_Msal() {
       Office.context.ui.messageParent(JSON.stringify({ status: 'failure', result: errorData }));
     });
 };
+
+async function getUserDetails() {
+  try {
+    const response = await fetch('https://graph.microsoft.com/v1.0/me', {
+      headers: {
+        'Authorization': 'Bearer ' + accessToken, // Assuming accessToken is defined elsewhere
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const userDetailsJson = await response.json();
+    console.log('User details:', userDetailsJson);
+
+    // Continue with any further processing using userDetailsJson
+  } catch (error) {
+    console.error('Error fetching user details:', error);
+  }
+}
+
+
+
 
 /*
 
