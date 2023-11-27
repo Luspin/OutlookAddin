@@ -143,12 +143,12 @@ async function auth_Msal() {
     .then((response) => {
       // If response is non-null, it means page is returning from AAD with a successful response
       if (response) {
-        console.log('Response: ' + response.accessToken);
+        // console.log('Response: ' + response.accessToken);
 
-      // Call the async function
-      const userDetails = getUserDetails(response.accessToken);
-
-        Office.context.ui.messageParent(JSON.stringify({ messageType: 'userAuthenticated', result: userDetails }));
+        // Call the async function
+        getUserDetails(response.accessToken).then((userDetails) => {
+          Office.context.ui.messageParent(JSON.stringify({ messageType: 'userAuthenticated', result: userDetails }));
+        });
       } else {
         // Otherwise, invoke login
         msalInstance.loginRedirect({
@@ -177,7 +177,7 @@ async function getUserDetails(accessToken) {
       throw new Error('Network response was not ok');
     }
 
-    const userDetailsJson = await response.json();
+    const userDetailsJson = response.json();
     console.log('User details:', userDetailsJson);
 
     return userDetailsJson;
@@ -186,53 +186,4 @@ async function getUserDetails(accessToken) {
   } catch (error) {
     console.error('Error fetching user details:', error);
   }
-}
-
-
-
-
-/*
-
-var loginRequest = {
-  scopes: ['User.Read']
-};
-
-let loginResponse = await client.loginPopup(loginRequest);
-console.log('Response: ' + loginResponse);
-
-var tokenRequest = {
-  scopes: ['User.Read'],
-  account: loginResponse.account
-};
-
-let tokenResponse = await client.acquireTokenSilent(tokenRequest);
-console.log('Token: ' + JSON.stringify(tokenResponse, null, 2));
-
-
-
-
-let payload = await fetch('https://graph.microsoft.com/v1.0/me', {
-  headers: {
-    'Authorization': 'Bearer ' + tokenResponse.accessToken
-  }
-});
-
-
-
-let userDetailsJson = await payload.json();
-console.log('Graph Response: ' + JSON.stringify(userDetailsJson, null, 2));
-
-userProfileSignedIn(userDetailsJson);
-
-
-
-}
-*/
-
-function userProfileSignedIn(profile) {
-  const profileMessage = {
-    "name": profile.name,
-    "email": profile.email,
-  };
-  Office.context.ui.messageParent(JSON.stringify(profileMessage));
 }
