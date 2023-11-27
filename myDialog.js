@@ -69,7 +69,7 @@ async function auth_Msal() {
     auth: {
       clientId: '95735d7a-6233-4d23-94b6-398b0f716e80',
       authority: 'https://login.microsoftonline.com/57cbf392-5174-46fa-b118-774b8410e0ca',
-      redirectUri: 'https://luspin.github.io/OutlookAddin/' // Must be registered as "spa" type
+      redirectUri: 'https://luspin.github.io/OutlookAddin/myDialog.html' // Must be registered as "spa" type
     },
     cache: {
       cacheLocation: 'localStorage', // needed to avoid "login required" error
