@@ -75,6 +75,7 @@ function openDialog() {
 
 function processMessage(arg) {
     const messageFromDialog = JSON.parse(arg.message);
+    console.log(messageFromDialog);
 
     if (messageFromDialog.messageType === "dialogClosed") {
         console.log("Dialog closed");
@@ -84,7 +85,7 @@ function processMessage(arg) {
 
     if (messageFromDialog.messageType === "userAuthenticated") {
         console.log("user Authenticated");
-        document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.result.name;
+        document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.displayName;
         dialog.close();
     }
 }
