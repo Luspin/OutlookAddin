@@ -61,6 +61,64 @@ function updateTimer() {
 
 // set up event listeners
 startTimer();
+tokenCallback()
+
+window.getCookie = function (name) {
+  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+  if (match) return match[2];
+}
+
+async function tokenCallback() {
+  const clientId = '95735d7a-6233-4d23-94b6-398b0f716e80';
+  const sessionStorageKey = 'msal.' + clientId + '.urlHash'
+  // try to retrieve a token from the msal.clientID storage under session storage
+  let token = sessionStorage.getItem(sessionStorageKey);
+
+  // get a cookie with the same name as the session storage key
+  const msalCookie = getCookie(sessionStorageKey);
+
+  // Extract the code from the URL-encoded string
+  const codeStartIndex = msalCookie.indexOf('%23code%3D') + '%23code%3D'.length;
+  const codeEndIndex = msalCookie.indexOf('%26client_info%3D');
+  const code = msalCookie.substring(codeStartIndex, codeEndIndex);
+
+  console.log('Extracted code:', code);
+
+  if (msalCookie || token) {
+    const tenantId = '57cbf392-5174-46fa-b118-774b8410e0ca';
+    const tokenEndpoint = `https://login.microsoftonline.com/${tenantId}/oauth2/v2.0/token`;
+    const scope = '2ff814a6-3304-4ab8-85cb-cd0e6f879c1d/.default';
+    const authorizationCode = code;
+    const redirectUri = 'https://luspin.github.io/OutlookAddin/myDialog.html';
+    const grantType = 'authorization_code';
+    const state = '1234';
+
+    const postData = new URLSearchParams({
+      client_id: clientId,
+      scope: scope,
+      code: authorizationCode,
+      redirect_uri: redirectUri,
+      grant_type: grantType,
+      state: state,
+    });
+
+    fetch(tokenEndpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: postData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Token response:', data);
+      })
+      .catch(error => {
+        console.error('Error fetching token:', error);
+      });
+  }
+}
+
 
 
 async function auth_Msal() {
