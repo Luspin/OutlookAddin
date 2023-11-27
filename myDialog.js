@@ -178,10 +178,11 @@ async function getUserDetails(accessToken) {
       throw new Error('Network response was not ok');
     }
 
-    const userDetailsJson = await response;
+    const userDetailsJsonPromise = response.json(); // This returns a Promise
+    // Wait for the JSON promise to resolve
+    const userDetailsJson = await userDetailsJsonPromise;
     console.log('User details:', userDetailsJson);
-
-    return userDetailsJson;
+    console.log('DONE getUserDetails');
 
     // Continue with any further processing using userDetailsJson
   } catch (error) {
