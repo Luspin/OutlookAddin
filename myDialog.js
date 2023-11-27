@@ -145,7 +145,8 @@ async function auth_Msal() {
 
         // Call the async function
         getUserDetails(response.accessToken).then((userDetails) => {
-          Office.context.ui.messageParent(JSON.stringify(`{ messageType: 'userAuthenticated', displayName: '${userDetails.displayName}'}`));
+          Office.context.ui.messageParent(JSON.stringify(
+            "{messageType: 'userAuthenticated', displayName: '" + userDetails.displayName + "'}"));
         });
       } else {
         // Otherwise, invoke login
