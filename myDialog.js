@@ -166,6 +166,7 @@ async function auth_Msal() {
 };
 
 async function getUserDetails(accessToken) {
+  // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
   try {
     const response = await fetch('https://graph.microsoft.com/v1.0/me', {
       headers: {
