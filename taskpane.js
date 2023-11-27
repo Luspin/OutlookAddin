@@ -84,15 +84,9 @@ function processMessage(arg) {
 
     if (messageFromDialog.messageType === "userAuthenticated") {
         console.log("user Authenticated");
-        document.getElementById("dialogResultText").innerHTML = "Result: " + messageFromDialog.messageType;
+        document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.name;
         dialog.close();
     }
-
-    console.log("got Token: " + arg);
-
-    document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.name;
-    dialog.close();
-
 }
 
 function openBrowserWindow() {

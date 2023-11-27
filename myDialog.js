@@ -146,9 +146,9 @@ async function auth_Msal() {
         console.log('Response: ' + response.accessToken);
 
       // Call the async function
-      getUserDetails(response.accessToken);
+      const userDetails = getUserDetails(response.accessToken);
 
-        Office.context.ui.messageParent(JSON.stringify({ status: 'userAuthenticated', result: response.accessToken }));
+        Office.context.ui.messageParent(JSON.stringify({ messageType: 'userAuthenticated', result: userDetails }));
       } else {
         // Otherwise, invoke login
         msalInstance.loginRedirect({
@@ -161,7 +161,7 @@ async function auth_Msal() {
                                   message: ${error.errorMessage}
                                   errorCode: ${error.stack}`;
 
-      Office.context.ui.messageParent(JSON.stringify({ status: 'failure', result: errorData }));
+      Office.context.ui.messageParent(JSON.stringify({ messageType: 'failure', result: errorData }));
     });
 };
 
