@@ -74,7 +74,7 @@ function openDialog() {
 }
 
 function processMessage(arg) {
-    const messageFromDialog = JSON.parse(arg.message);
+    const messageFromDialog = JSON.parse(arg.message.slice(1, -1).replace(/\\"/g, '"'));
     console.log(messageFromDialog);
 
     if (messageFromDialog.messageType === "dialogClosed") {
