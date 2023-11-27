@@ -61,7 +61,7 @@ function updateTimer() {
 
 // set up event listeners
 startTimer();
-tokenCallback()
+// tokenCallback()
 
 async function tokenCallback() {
 
@@ -146,7 +146,7 @@ async function auth_Msal() {
         console.log('Response: ' + response.accessToken);
 
       // Call the async function
-      getUserDetails();
+      getUserDetails(response.accessToken);
 
         Office.context.ui.messageParent(JSON.stringify({ status: 'userAuthenticated', result: response.accessToken }));
       } else {
@@ -165,7 +165,7 @@ async function auth_Msal() {
     });
 };
 
-async function getUserDetails() {
+async function getUserDetails(accessToken) {
   try {
     const response = await fetch('https://graph.microsoft.com/v1.0/me', {
       headers: {
