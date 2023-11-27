@@ -63,12 +63,13 @@ function updateTimer() {
 startTimer();
 tokenCallback()
 
-window.getCookie = function (name) {
-  var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-  if (match) return match[2];
-}
-
 async function tokenCallback() {
+
+  window.getCookie = function (name) {
+    var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    if (match) return match[2];
+  }
+
   const clientId = '95735d7a-6233-4d23-94b6-398b0f716e80';
   const sessionStorageKey = 'msal.' + clientId + '.urlHash'
   // try to retrieve a token from the msal.clientID storage under session storage
