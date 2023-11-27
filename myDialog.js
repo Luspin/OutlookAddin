@@ -138,7 +138,7 @@ async function auth_Msal() {
   // https://github.com/OfficeDev/Office-Add-in-samples/blob/main/Samples/auth/Office-Add-in-Microsoft-Graph-React/login/login.ts#L32
 
   // handleRedirectPromise should be invoked on every page load
-  msalInstance.handleRedirectPromise()
+  await msalInstance.handleRedirectPromise()
     .then((response) => {
       // If response is non-null, it means page is returning from AAD with a successful response
       if (response) {
