@@ -1,13 +1,12 @@
 Office.onReady(function () {
-  document.getElementById("authButton").onclick = userSignedIn;
   document.getElementById("closeButton").onclick = closeButtonClick;
   document.getElementById("startButton").onclick = startTimer;
   document.getElementById("stopButton").onclick = stopTimer;
   document.getElementById("resetButton").onclick = resetTimer;
-  document.getElementById("authButton_Msal").onclick = auth_Msal;
+  document.getElementById("getTokenButton").onclick = getToken;
 });
 
-
+const authStatusLabel = document.getElementById("authStatusLabel");
 
 // Called when dialog signs in the user.
 function userSignedIn() {
@@ -156,21 +155,31 @@ async function auth_Msal() {
           Office.context.ui.messageParent(JSON.stringify(
             "{\"messageType\": \"userAuthenticated\", \"displayName\": \"" + userDetails.displayName + "\"}"));
         });
+
+
+
       } else {
         // Otherwise, invoke login
-        msalInstance.loginRedirect({
-          scopes: ['User.Read']
-        });
+        authStatusLabel.innerText = "STATUS: Not Signed In";
       }
     })
     .catch((error) => {
+      authStatusLabel.innerText = "STATUS: ERROR";
+
+
       const errorData = `errorMessage: ${error.errorCode}
                                   message: ${error.errorMessage}
                                   errorCode: ${error.stack}`;
 
-      Office.context.ui.messageParent(JSON.stringify({ messageType: 'failure', result: errorData }));
+      // Office.context.ui.messageParent(JSON.stringify({ messageType: 'failure', result: errorData }));
     });
 };
+
+async function getToken() {
+  msalInstance.loginRedirect({
+    scopes: ['User.Read']
+  });
+}
 
 async function getUserDetails(accessToken) {
   // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch

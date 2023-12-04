@@ -280,22 +280,6 @@
               <OfficeTab id="TabDefault">
                 <Group id="msgReadDemoGroup">
                   <Label resid="groupLabel" />
-                  <!-- Function (UI-less) button -->
-                  <Control xsi:type="Button" id="msgReadFunctionButton">
-                    <Label resid="funcReadButtonLabel" />
-                    <Supertip>
-                      <Title resid="funcReadSuperTipTitle" />
-                      <Description resid="funcReadSuperTipDescription" />
-                    </Supertip>
-                    <Icon>
-                      <bt:Image size="16" resid="blue-icon-16" />
-                      <bt:Image size="32" resid="blue-icon-32" />
-                      <bt:Image size="80" resid="blue-icon-80" />
-                    </Icon>
-                    <Action xsi:type="ShowTaskpane">
-                      <SourceLocation resid="composeTaskPaneUrl" />
-                    </Action>
-                  </Control>
                   <!-- Menu (dropdown) button -->
                   <Control xsi:type="Menu" id="msgReadMenuButton">
                     <Label resid="menuReadButtonLabel" />
@@ -355,23 +339,6 @@
                     </Action>
                       </Item>
                     </Items>
-                  </Control>
-                  <!-- Task pane button -->
-                  <Control xsi:type="Button" id="msgReadOpenPaneButton">
-                    <Label resid="paneReadButtonLabel" />
-                    <Supertip>
-                      <Title resid="paneReadSuperTipTitle" />
-                      <Description resid="paneReadSuperTipDescription" />
-                    </Supertip>
-                    <Icon>
-                      <bt:Image size="16" resid="green-icon-16" />
-                      <bt:Image size="32" resid="green-icon-32" />
-                      <bt:Image size="80" resid="green-icon-80" />
-                    </Icon>
-                    <Action xsi:type="ShowTaskpane">
-                      <SourceLocation resid="composeTaskPaneUrl" />
-                      <SupportsPinning>true</SupportsPinning>
-                    </Action>
                   </Control>
 
                   <Control xsi:type="Button" id="msgReadRestPaneButton">
@@ -494,9 +461,7 @@
           <bt:String id="menuReadButtonLabel" DefaultValue="Get property"/>
           <bt:String id="paneReadButtonLabel" DefaultValue="Display all properties"/>
           <bt:String id="restpaneReadButtonLabel" DefaultValue="Test REST Calls"/>
-          <bt:String id="funcReadSuperTipTitle" DefaultValue="Gets the subject of the message or appointment"/>
           <bt:String id="menuReadSuperTipTitle" DefaultValue="Choose a property to get"/>
-          <bt:String id="paneReadSuperTipTitle" DefaultValue="Get all properties"/>
           <bt:String id="restpaneReadSuperTipTitle" DefaultValue="Open REST Test pane"/>
           <bt:String id="menuItem1ReadLabel" DefaultValue="Get item class"/>
           <bt:String id="menuItem2ReadLabel" DefaultValue="Get date time created"/>
