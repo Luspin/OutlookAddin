@@ -7,6 +7,7 @@ Office.onReady(function () {
 });
 
 const authStatusLabel = document.getElementById("authStatusLabel");
+let userDetailsPresentInPage = "";
 
 // Called when dialog signs in the user.
 function userSignedIn() {
@@ -16,9 +17,16 @@ function userSignedIn() {
 }
 
 function closeButtonClick() {
+
+  if (userDetailsPresentInPage != "") {
+    Office.context.ui.messageParent(JSON.stringify(
+      "{\"messageType\": \"userAuthenticated\", \"displayName\": \"" + userDetailsPresentInPage.displayName + "\"}"));
+  }
+
   let messageObject_dialogClosed = { messageType: "dialogClosed" };
   let jsonMessage = JSON.stringify(messageObject_dialogClosed);
   Office.context.ui.messageParent(jsonMessage);
+
 }
 
 // a Javascript clock implementation
@@ -149,11 +157,9 @@ async function auth_Msal() {
       // If response is non-null, it means page is returning from AAD with a successful response
       if (response) {
         // console.log('Response: ' + response.accessToken);
-
         // Call the async function
         getUserDetails(response.accessToken).then((userDetails) => {
-          Office.context.ui.messageParent(JSON.stringify(
-            "{\"messageType\": \"userAuthenticated\", \"displayName\": \"" + userDetails.displayName + "\"}"));
+          authStatusLabel.innerText = "STATUS: Signed In (" + userDetails.displayName + ")";
         });
 
 
@@ -197,7 +203,8 @@ async function getUserDetails(accessToken) {
     const userDetailsJsonPromise = response.json(); // This returns a Promise
     // Wait for the JSON promise to resolve
     const userDetailsJson = await userDetailsJsonPromise;
-    console.log('User details:', userDetailsJson);
+    // console.log('User details:', userDetailsJson);
+    userDetailsPresentInPage = userDetailsJson;
     return userDetailsJson;
 
     // Continue with any further processing using userDetailsJson
