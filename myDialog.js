@@ -120,23 +120,31 @@ async function tokenCallback() {
   }
 }
 
+// https://azuread.github.io/microsoft-authentication-library-for-js/ref/classes/_azure_msal_node.PublicClientApplication.html
+// Public client applications are not trusted to safely store application secrets, and therefore can only request tokens in the name of an user.
+const msalInstance = new msal.PublicClientApplication({
+  auth: {
+    clientId: '95735d7a-6233-4d23-94b6-398b0f716e80',
+    authority: 'https://login.microsoftonline.com/57cbf392-5174-46fa-b118-774b8410e0ca',
+    redirectUri: 'https://luspin.github.io/OutlookAddin/myDialog.html', // Must be registered as "spa" type
+    navigateToLoginRequestUrl: true
+  },
+  cache: {
+    // cacheLocation: 'localStorage', // needed to avoid "login required" error
+    //storeAuthStateInCookie: true   // recommended to avoid certain IE/Edge issues
+    cacheLocation: "sessionStorage",
+    storeAuthStateInCookie: false,
+  }
+});
+
+auth_Msal()
+
 async function auth_Msal() {
   // https://www.youtube.com/watch?v=YVLaQHePKaQ
-  var msalInstance = new msal.PublicClientApplication({
-    auth: {
-      clientId: '95735d7a-6233-4d23-94b6-398b0f716e80',
-      authority: 'https://login.microsoftonline.com/57cbf392-5174-46fa-b118-774b8410e0ca',
-      redirectUri: 'https://luspin.github.io/OutlookAddin/myDialog.html' // Must be registered as "spa" type
-    },
-    cache: {
-      cacheLocation: 'localStorage', // needed to avoid "login required" error
-      storeAuthStateInCookie: true   // recommended to avoid certain IE/Edge issues
-    }
-  });
-
   // https://github.com/OfficeDev/Office-Add-in-samples/blob/main/Samples/auth/Office-Add-in-Microsoft-Graph-React/login/login.ts#L32
 
-  // handleRedirectPromise should be invoked on every page load
+  // Event handler function which allows users to fire events after the PublicClientApplication object has loaded during redirect flows.
+  // This should be invoked on all page loads involved in redirect auth flows.
   await msalInstance.handleRedirectPromise()
     .then((response) => {
       // If response is non-null, it means page is returning from AAD with a successful response
