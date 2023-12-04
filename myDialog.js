@@ -17,16 +17,14 @@ function userSignedIn() {
 }
 
 function closeButtonClick() {
-
   if (userDetailsPresentInPage != "") {
     Office.context.ui.messageParent(JSON.stringify(
       "{\"messageType\": \"userAuthenticated\", \"displayName\": \"" + userDetailsPresentInPage.displayName + "\"}"));
+  } else {
+    let messageObject_dialogClosed = { messageType: "dialogClosed" };
+    let jsonMessage = JSON.stringify(messageObject_dialogClosed);
+    Office.context.ui.messageParent(jsonMessage);
   }
-
-  let messageObject_dialogClosed = { messageType: "dialogClosed" };
-  let jsonMessage = JSON.stringify(messageObject_dialogClosed);
-  Office.context.ui.messageParent(jsonMessage);
-
 }
 
 // a Javascript clock implementation
