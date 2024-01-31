@@ -113,6 +113,7 @@ async function syncMessage() {
         const restId = Office.context.mailbox.convertToRestId(result.value, Office.MailboxEnums.RestVersion.v2_0);
         
         console.log("REST item ID: " + restId);
+        document.getElementById("syncMessageIdLabel").innerHTML = "Synced message ID: " + restId;
         savedMailId = restId;
     });
 }
@@ -128,7 +129,8 @@ async function sendMessage() {
         }
       });
 
-      return response.json();
+      let sendStatus = response.json().status;
+      document.getElementById("sendMessageStatusLabel").innerHTML = "Message sent status: " + sendStatus;
     } catch (error) {
       console.error('Error sending mail:', error);
     }
