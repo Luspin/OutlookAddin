@@ -117,7 +117,7 @@ async function syncMessage() {
     });
 }
 
-async function sendMessage(accessToken) {
+async function sendMessage() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     // https://learn.microsoft.com/en-us/graph/api/message-send?view=graph-rest-1.0&tabs=http
     try {
