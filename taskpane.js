@@ -129,10 +129,11 @@ async function sendMessage() {
         }
       });
 
-      let status = response.json()
+      const messageSendStatusDetails = response.json(); // This returns a Promise
+      // Wait for the JSON promise to resolve
+      const messageSendStatus = await messageSendStatusDetails; 
 
-      let sendStatus = status;
-      document.getElementById("sendMessageStatusLabel").innerHTML = "Message sent status: " + sendStatus;
+      document.getElementById("sendMessageStatusLabel").innerHTML = "Message sent status: " + messageSendStatus;
     } catch (error) {
       console.error('Error sending mail:', error);
     }
