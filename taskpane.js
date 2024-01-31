@@ -129,7 +129,9 @@ async function sendMessage() {
         }
       });
 
-      let sendStatus = response.json().status;
+      let status = response.json()
+
+      let sendStatus = status;
       document.getElementById("sendMessageStatusLabel").innerHTML = "Message sent status: " + sendStatus;
     } catch (error) {
       console.error('Error sending mail:', error);
