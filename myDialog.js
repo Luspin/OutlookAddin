@@ -19,7 +19,7 @@ function userSignedIn() {
 function closeButtonClick() {
   if (userDetailsPresentInPage != "") {
     Office.context.ui.messageParent(JSON.stringify(
-      "{\"messageType\": \"userAuthenticated\", \"displayName\": \"" + userDetailsPresentInPage.displayName + "\"}"));
+      "{\"messageType\": \"userAuthenticated\", \"displayName\": \"" + userDetailsPresentInPage.displayName + "\", \"accessToken\": \"" + accessToken + "\"}"));
   } else {
     let messageObject_dialogClosed = { messageType: "dialogClosed" };
     let jsonMessage = JSON.stringify(messageObject_dialogClosed);
@@ -143,6 +143,7 @@ const msalInstance = new msal.PublicClientApplication({
 });
 
 auth_Msal()
+let accessToken;
 
 async function auth_Msal() {
   // https://www.youtube.com/watch?v=YVLaQHePKaQ
@@ -156,6 +157,7 @@ async function auth_Msal() {
       if (response) {
         // console.log('Response: ' + response.accessToken);
         // Call the async function
+        accessToken = response.accessToken;
         getUserDetails(response.accessToken).then((userDetails) => {
           authStatusLabel.innerText = "STATUS: Signed In (" + userDetails.displayName + ")";
         });
@@ -181,7 +183,7 @@ async function auth_Msal() {
 
 async function getToken() {
   msalInstance.loginRedirect({
-    scopes: ['User.Read']
+    scopes: ['User.Read', 'Mail.ReadWrite', 'Mail.Read', 'Mail.Send']
   });
 }
 
