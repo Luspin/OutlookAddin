@@ -4,6 +4,8 @@ Office.onReady((info) => {
         document.getElementById("helloButton").onclick = sayHello;
         document.getElementById("displayDialogAsyncButton").onclick = openDialog;
         document.getElementById("openBrowserWindowButton").onclick = openBrowserWindow;
+        document.getElementById("syncMessageButton").onclick = syncMessage;
+        document.getElementById("sendMessageButton").onclick = sendMessage;
 
 
         let supportsSet = JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13"))
@@ -96,4 +98,38 @@ function processMessage(arg) {
 
 function openBrowserWindow() {
     Office.context.ui.openBrowserWindow("https://www.google.com");
+}
+
+let savedMailId;
+
+async function syncMessage() {
+    Office.context.mailbox.item.saveAsync(function (result) {
+        if (result.status === Office.AsyncResultStatus.Succeeded) {
+            console.log(`saveAsync succeeded, itemId is ${result.value}`);
+        } else {
+            console.error(`saveAsync failed with message ${result.error.message}`);
+        }
+        
+        const restId = Office.context.mailbox.convertToRestId(result.value, Office.MailboxEnums.RestVersion.v2_0);
+        
+        console.log("REST item ID: " + restId);
+        savedMailId = restId;
+    });
+}
+
+async function sendMessage(accessToken) {
+    // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+    // https://learn.microsoft.com/en-us/graph/api/message-send?view=graph-rest-1.0&tabs=http
+    try {
+      const response = await fetch('https://graph.microsoft.com/v1.0/me/messages/' + savedMailId + '/send', {
+        method: "POST",
+        headers: {
+          'Authorization': 'Bearer ' + accessToken, // Assuming accessToken is defined elsewhere
+        }
+      });
+
+      return response.json();
+    } catch (error) {
+      console.error('Error sending mail:', error);
+    }
 }
