@@ -73,6 +73,8 @@ function openDialog() {
     );
 }
 
+let accessToken;
+
 function processMessage(arg) {
     const messageFromDialog = JSON.parse(arg.message.slice(1, -1).replace(/\\"/g, '"'));
     console.log(messageFromDialog);
@@ -87,6 +89,7 @@ function processMessage(arg) {
         console.log("user Authenticated");
         document.getElementById("dialogResultText").innerHTML = "Hello: " + messageFromDialog.displayName;
         console.log(messageFromDialog.accessToken);
+        accessToken = messageFromDialog.accessToken;
         dialog.close();
     }
 }
