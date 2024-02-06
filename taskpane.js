@@ -7,12 +7,6 @@ Office.onReady((info) => {
         document.getElementById("syncMessageButton").onclick = syncMessage;
         document.getElementById("sendMessageButtonGraph").onclick = sendMessageGraph;
 
-        function sendMessageGraph() {
-            // Implement your code here
-            // This function will be called when the "sendMessageButtonGraph" button is clicked
-            // Add your logic to send a message using the Microsoft Graph API
-        }
-
         console.log(JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13")));
 
     }
@@ -123,6 +117,8 @@ async function syncMessage() {
 async function sendMessageGraph() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     // https://learn.microsoft.com/en-us/graph/api/message-send?view=graph-rest-1.0&tabs=http
+console.log("Sending message using Graph API");
+
     try {
       const response = await fetch('https://graph.microsoft.com/v1.0/me/messages/' + savedMailId + '/send', {
         method: "POST",
