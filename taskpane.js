@@ -5,11 +5,13 @@ Office.onReady((info) => {
         document.getElementById("displayDialogAsyncButton").onclick = openDialog;
         document.getElementById("openBrowserWindowButton").onclick = openBrowserWindow;
         document.getElementById("syncMessageButton").onclick = syncMessage;
-        document.getElementById("sendMessageButton").onclick = sendMessage;
+        document.getElementById("sendMessageButtonGraph").onclick = sendMessageGraph;
 
-
-        let supportsSet = JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13"))
-        document.getElementById("supportedVersion").innerHTML = supportsSet;
+        function sendMessageGraph() {
+            // Implement your code here
+            // This function will be called when the "sendMessageButtonGraph" button is clicked
+            // Add your logic to send a message using the Microsoft Graph API
+        }
 
         console.log(JSON.stringify(Office.context.requirements.isSetSupported("mailbox", "1.13")));
 
@@ -118,7 +120,7 @@ async function syncMessage() {
     });
 }
 
-async function sendMessage() {
+async function sendMessageGraph() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     // https://learn.microsoft.com/en-us/graph/api/message-send?view=graph-rest-1.0&tabs=http
     try {
@@ -135,6 +137,7 @@ async function sendMessage() {
 
       document.getElementById("sendMessageStatusLabel").innerHTML = "Message sent status: " + messageSendStatus;
     } catch (error) {
-      console.error('Error sending mail:', error);
+      // undefined
+      document.getElementById("errorMessage").innerHTML = "Error: " + error.message;
     }
 }
