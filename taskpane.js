@@ -105,9 +105,9 @@ async function syncMessage() {
         } else {
             console.error(`saveAsync failed with message ${result.error.message}`);
         }
-        
+
         const restId = Office.context.mailbox.convertToRestId(result.value, Office.MailboxEnums.RestVersion.v2_0);
-        
+
         console.log("REST item ID: " + restId);
         document.getElementById("syncMessageIdLabel").innerHTML = "Synced message ID: " + restId;
         savedMailId = restId;
@@ -117,23 +117,23 @@ async function syncMessage() {
 async function sendMessageGraph() {
     // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     // https://learn.microsoft.com/en-us/graph/api/message-send?view=graph-rest-1.0&tabs=http
-console.log("Sending message using Graph API");
+    console.log("Sending message using Graph API");
 
     try {
-      const response = await fetch('https://graph.microsoft.com/v1.0/me/messages/' + savedMailId + '/send', {
-        method: "POST",
-        headers: {
-          'Authorization': 'Bearer ' + accessToken, // Assuming accessToken is defined elsewhere
-        }
-      });
+        const response = await fetch('https://graph.microsoft.com/v1.0/me/messages/' + savedMailId + '/send', {
+            method: "POST",
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+        });
 
-      const messageSendStatusDetails = response.json(); // This returns a Promise
-      // Wait for the JSON promise to resolve
-      const messageSendStatus = await messageSendStatusDetails; 
+        const messageSendStatusDetails = response.json(); // This returns a Promise
+        // Wait for the JSON promise to resolve
+        const messageSendStatus = await messageSendStatusDetails;
 
-      document.getElementById("sendMessageStatusLabel").innerHTML = "Message sent status: " + messageSendStatus;
+        document.getElementById("sendMessageStatusLabel").innerHTML = "Message sent status: " + messageSendStatus;
     } catch (error) {
-      // undefined
-      document.getElementById("errorMessage").innerHTML = "Error: " + error.message;
+        // undefined
+        document.getElementById("errorMessage").innerHTML = "Error: " + error.message;
     }
 }
